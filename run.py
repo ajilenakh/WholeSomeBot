@@ -2,7 +2,6 @@ import nextcord
 from nextcord.ext import commands
 import os
 import wavelinkcord as wavelink
-import wavelinkcord as wavelink
 from dotenv import load_dotenv
 
 load_dotenv()
