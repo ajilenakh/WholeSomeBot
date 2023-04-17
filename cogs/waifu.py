@@ -10,7 +10,7 @@ load_dotenv()
 def input(msg, author):
     url = "https://waifu.p.rapidapi.com/path"
 
-    querystring = {"user_id":f"{author}","message":f"{msg}","from_name":f"{userName[:-5]}","to_name":"Waifu","situation":"Waifu loves "+f"{userName[:-5]}"+" .","translate_from":"auto","translate_to":"auto"}
+    querystring = {"user_id":f"{author}","message":f"{msg}","from_name":f"{userName[:-5]}","to_name":"Girl","situation":"Girl loves "+f"{userName[:-5]}"+" .","translate_from":"auto","translate_to":"auto"}
 
     payload = {}
     headers = {
