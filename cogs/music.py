@@ -10,13 +10,17 @@ class music_cog(commands.Cog):
     @nextcord.slash_command(guild_ids=[1062474098418139256])
     async def play(self, interaction: nextcord.Interaction, search: str):
         query = await wavelink.YouTubeTrack.search(search, return_first=True)
-        destination = interaction.user.voice.channel
-
-        if not interaction.guild.voice_client:
-            vc: wavelink.Player = await destination.connect(cls=wavelink.Player)
-        else:
-            vc: wavelink.Player = interaction.guild.voice_client
-
+        
+        try:
+            destination = interaction.user.voice.channel
+            if not interaction.guild.voice_client:
+                vc: wavelink.Player = await destination.connect(cls=wavelink.Player)
+            else:
+                vc: wavelink.Player = interaction.guild.voice_client
+        except AttributeError:
+            author= interaction.user
+            await interaction.response.send_message(f"{author.mention} join a voice channel.")
+            return
         if vc.queue.is_empty and not vc.is_playing():
             await vc.play(query)
             await interaction.response.send_message(f"Now Playing {vc.current.title}")
