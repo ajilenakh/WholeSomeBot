@@ -13,7 +13,7 @@ async def on_node():
     await wavelink.NodePool.connect(client=bot, nodes=[node])
     wavelink.Player.autoplay = True
 
-for f in os.listdir('PYTHON\wholeSomeBot\cogs'):
+for f in os.listdir('cogs'):
     if f.endswith('.py'):
         bot.load_extension(f'cogs.{f[:-3]}')
 
