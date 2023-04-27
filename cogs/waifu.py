@@ -6,11 +6,15 @@ import nextcord
 from nextcord.ext import commands
 
 load_dotenv()
+global userName
+
 
 def input(msg, author):
     url = "https://waifu.p.rapidapi.com/path"
 
-    querystring = {"user_id":f"{author}","message":f"{msg}","from_name":f"{userName[:-5]}","to_name":"Girl","situation":"Girl loves "+f"{userName[:-5]}"+" .","translate_from":"auto","translate_to":"eng"}
+    querystring = {"user_id": f"{author}", "message": f"{msg}", "from_name": f"{userName[:-5]}", "to_name": "Girl",
+                   "situation": "Girl loves " + f"{userName[:-5]}" + " .", "translate_from": "auto",
+                   "translate_to": "eng"}
 
     payload = {}
     headers = {
@@ -21,19 +25,20 @@ def input(msg, author):
 
     response = requests.request("POST", url, json=payload, headers=headers, params=querystring)
 
-    return(response.text)
+    return response.text
+
 
 class waifu_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
     @nextcord.slash_command(guild_ids=[1062474098418139256])
-    async def waifu(self, interaction: nextcord.Interaction, msg:str):
-        global userName
+    async def waifu(self, interaction: nextcord.Interaction, msg: str):
         author = interaction.user
-        userName= (f"{author}")
+        userName = f"{author}"
         await interaction.response.send_message(f"{userName[:-5]}: {msg}")
         await interaction.followup.send("Waifu: " + input(msg, author))
-        
+
+
 def setup(bot):
     bot.add_cog(waifu_cog(bot))

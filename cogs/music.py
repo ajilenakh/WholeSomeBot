@@ -21,6 +21,7 @@ class music_cog(commands.Cog):
             author= interaction.user
             await interaction.response.send_message(f"{author.mention} join a voice channel.")
             return
+
         if vc.queue.is_empty and not vc.is_playing():
             await vc.play(query)
             await interaction.response.send_message(f"Now Playing {vc.current.title}")
